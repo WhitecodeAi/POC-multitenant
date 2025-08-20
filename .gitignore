@@ -21,8 +21,9 @@ server/dist/
 # Environment files
 *.local
 .env
-client/.env.local
-server/.env
+.env*
+client/.env*
+server/.env*
 
 # Editor directories and files
 .vscode/*
