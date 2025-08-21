@@ -1,6 +1,7 @@
 import { useState } from 'react'
- 
+//test gitlab to github import 
 import './App.css'
+
 import { BrowserRouter as Router, Routes, Route, Navigate  } from 'react-router-dom';
 import FacultyPage from './Pages/FacultyPage'; // adjust path as needed
 
