@@ -3,34 +3,43 @@ import { useEffect, useState } from 'react';
 import { Container, Typography, List, ListItem, ListItemText } from '@mui/material';
 import axios from 'axios';
 
-const tenant = import.meta.env.VITE_TENANT_ID || 'vite';
-
 const FacultyList = () => {
   const [faculty, setFaculty] = useState([]);
+  const [error, setError] = useState(null);
 
-  
-   useEffect(() => {
-    // Extract tenant from URL path: e.g., /anc or /kakade
+  useEffect(() => {
     const pathTenant = window.location.pathname.split('/')[1] || 'default';
 
-    axios.get('http://localhost:3001/api/faculty', {
+    axios.get(`${import.meta.env.VITE_API_URL}/api/faculty`, {
       headers: { 'x-tenant-id': pathTenant }
     })
-    .then(res => setFaculty(res.data))
-    .catch(err => console.error('Error fetching faculty:', err));
-  }, []);
+    .then(res => {
+      console.log('Faculty response:', res.data);
 
-  
-// useEffect(() => {
-//     axios.get('http://localhost:3001/api/faculty', {
-//       headers: { 'x-tenant-id': tenant }
-//     }).then(res => setFaculty(res.data))
-//       .catch(err => console.error('Error fetching faculty:', err));
-//   }, []);
+      if (Array.isArray(res.data)) {
+        setFaculty(res.data);
+      } else {
+        console.warn('Unexpected response format:', res.data);
+        setFaculty([]);
+        setError('Unexpected response format');
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching faculty:', err);
+      setError('Failed to fetch faculty');
+    });
+  }, []);
 
   return (
     <Container>
-      <Typography variant="h4">Faculty List</Typography>
+      <Typography variant="h4" gutterBottom>Faculty List</Typography>
+
+      {error && (
+        <Typography color="error" variant="body1">
+          {error}
+        </Typography>
+      )}
+
       <List>
         {faculty.map(f => (
           <ListItem key={f.id}>
