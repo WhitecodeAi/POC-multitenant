@@ -12,7 +12,7 @@ function App() {
   return (
    <Router>
       <Routes>
-         <Route path="/" element={<Navigate to="/anc" replace />} />
+         
         <Route  path="/:tenant" element={<FacultyPage />} />
       </Routes>
     </Router>
