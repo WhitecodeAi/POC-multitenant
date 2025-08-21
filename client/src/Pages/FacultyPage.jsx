@@ -8,18 +8,25 @@ const tenant = import.meta.env.VITE_TENANT_ID || 'vite';
 const FacultyList = () => {
   const [faculty, setFaculty] = useState([]);
 
-  // useEffect(() => {
-  //   const tenant = window.location.hostname.split('.')[0];
-  //   axios.get('http://localhost:3001/api/faculty', {
-  //     headers: { 'x-tenant-id': tenant }
-  //   }).then(res => setFaculty(res.data));
-  // }, []);
-useEffect(() => {
+  
+   useEffect(() => {
+    // Extract tenant from URL path: e.g., /anc or /kakade
+    const pathTenant = window.location.pathname.split('/')[1] || 'default';
+
     axios.get('http://localhost:3001/api/faculty', {
-      headers: { 'x-tenant-id': tenant }
-    }).then(res => setFaculty(res.data))
-      .catch(err => console.error('Error fetching faculty:', err));
+      headers: { 'x-tenant-id': pathTenant }
+    })
+    .then(res => setFaculty(res.data))
+    .catch(err => console.error('Error fetching faculty:', err));
   }, []);
+
+  
+// useEffect(() => {
+//     axios.get('http://localhost:3001/api/faculty', {
+//       headers: { 'x-tenant-id': tenant }
+//     }).then(res => setFaculty(res.data))
+//       .catch(err => console.error('Error fetching faculty:', err));
+//   }, []);
 
   return (
     <Container>
