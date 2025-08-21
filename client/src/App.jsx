@@ -11,7 +11,7 @@ function App() {
   return (
    <Router>
       <Routes>
-        Welcome
+         <Route path="/" element={<Navigate to="/anc" replace />} />
         <Route  path="/:tenant" element={<FacultyPage />} />
       </Routes>
     </Router>
