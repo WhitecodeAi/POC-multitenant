@@ -1,4 +1,3 @@
-// src/pages/FacultyList.jsx
 import { useEffect, useState } from 'react';
 import { Container, Typography, List, ListItem, ListItemText } from '@mui/material';
 import axios from 'axios';
@@ -16,8 +15,11 @@ const FacultyList = () => {
     .then(res => {
       console.log('Faculty response:', res.data);
 
+      // Accept both array and { data: [...] } for robustness
       if (Array.isArray(res.data)) {
         setFaculty(res.data);
+      } else if (Array.isArray(res.data.data)) {
+        setFaculty(res.data.data);
       } else {
         console.warn('Unexpected response format:', res.data);
         setFaculty([]);
