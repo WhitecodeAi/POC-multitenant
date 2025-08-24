@@ -11,7 +11,7 @@ function App() {
 
   return (
    <Router>
-    <h3>Welcome 3</h3>
+    <h3>Welcome</h3>
       <Routes>
          
         <Route  path="/:tenant" element={<FacultyPage />} />
